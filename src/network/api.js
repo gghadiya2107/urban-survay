@@ -3,8 +3,9 @@ import axios from "axios";
 import { getToken } from "../utils/cookie";
 
 const axiosInstance = axios.create({
-  //baseURL: "https://himstaging1.hp.gov.in/urban-survey-dashboard", // Set your API base URL
-  baseURL: "https://himparivarservices.hp.gov.in/urban-survey-dashboard",
+  // baseURL: "https://himstaging1.hp.gov.in/urban-survey-dashboard", // Set your API base URL
+  // baseURL: "https://himparivarservices.hp.gov.in/urban-survey-dashboard",
+  baseURL: "http://10.126.161.240:8080/urban-survey-dashboard",
   headers: {
     "Content-Type": "text/plain", // Set the appropriate content type for your data
   },

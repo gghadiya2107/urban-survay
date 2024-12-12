@@ -1,6 +1,7 @@
 // actions/someActions.js
 import axios from "../api";
 import CryptoJS from 'crypto-js';
+import { encryptDataPost, decryptData } from '../../utils/encryptDecrypt'
 
 import { LOGIN_SUCCESS, LOGIN_FAILURE } from "../action_types";
 // Action Creators
@@ -27,15 +28,18 @@ export const onLogin = (username, password) => {
 
 
     try {
-   
+
       const response = await axios.post(
         "/signIn",
-        JSON.stringify({
-          username: username,
-          password: encryptedString,
-        })
+                encryptDataPost(JSON.stringify({
+                  username: username,
+                  password: password,
+                }))
+
       );
-      dispatch(fetchLoginSuccess(response.data));
+      let originalText = decryptData(response?.data?.data);
+
+      dispatch(fetchLoginSuccess(originalText));
     } catch (error) {
       dispatch(fetchLoginFailure(error));
     }

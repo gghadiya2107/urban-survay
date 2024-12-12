@@ -5,6 +5,7 @@ import {
   DASHBOARD_REPORT_SUCCESS,
   DASHBOARD_REPORT_FALIURE,
 } from "../action_types";
+import { decryptData } from "../../utils/encryptDecrypt";
 // Action Creators
 export const fetchDashboardSuccess = (data) => ({
   type: DASHBOARD_REPORT_SUCCESS,
@@ -23,7 +24,8 @@ export const onDashboarFilters = (queryParams) => {
       const response = await axios.get(`/report/survey`, {
         params: queryParams,
       });
-      dispatch(fetchDashboardSuccess(response.data));
+      let originalText = decryptData(response?.data?.data);
+      dispatch(fetchDashboardSuccess(originalText));
     } catch (error) {
       dispatch(fetchDashboardFaliure(error));
     }

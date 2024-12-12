@@ -173,12 +173,13 @@ const Dashboard = () => {
   const [aadhaarEkycInfoList, setAadhaarEkycInfoList] = useState([]);
   const [economicCategoryInfoList, setEconomicCategoryInfoList] = useState([]);
   const [retainInInfoList, setRetainInInfoList] = useState([]);
-  
+
 
   const dispatch = useDispatch();
   const dashboardFilterState = useSelector(
     (state) => state.dashboardFilterRedux
   );
+  console.log('dashboardFilterState', dashboardFilterState )
 
   const handleFilterChange = ({ district, municipal, ward }) => {
     setSelectedDistrict(district);
@@ -278,15 +279,16 @@ const Dashboard = () => {
    */
   useEffect(() => {
     if (dashboardFilterState?.data) {
-      const { data, status, message } = dashboardFilterState.data || {};
-      if (status === "OK" && message === "SUCCESS") {
+      const { data } = dashboardFilterState || {};
+      console.log('data123', data)
+      if (data) {
         // Set the parsed data to state variables
         setSurveyInfo(data.surveyInfoList);
         setVerificationInfoList(data.verificationInfoList);
         setAadhaarEkycInfoList(data.aadhaarEkycInfoList);
         setEconomicCategoryInfoList(data.economicCategoryInfoList);
         setRetainInInfoList(data.retainInInfoList);
-        
+
 
         console.log("setVerificationInfoList", verificationInfoList);
       } else {
@@ -301,7 +303,7 @@ const Dashboard = () => {
     <>
       <Filters onChange={handleFilterChange} />
       <main className="p-6 space-y-6">
-        {surveyInfo.length > 0 && (
+        {surveyInfo?.length > 0 && (
           <>
             <Box
               style={{ background: "#074465", color: "#FFF", borderRadius: 6 }}
@@ -330,7 +332,7 @@ const Dashboard = () => {
           </>
         )}
 
-        {verificationInfoList.length > 0 && (
+        {verificationInfoList?.length > 0 && (
           <>
             <Box
               style={{ background: "#074465", color: "#FFF", borderRadius: 6 }}
@@ -359,7 +361,7 @@ const Dashboard = () => {
           </>
         )}
 
-        {aadhaarEkycInfoList.length > 0 && (
+        {aadhaarEkycInfoList?.length > 0 && (
           <>
             <Box
               style={{ background: "#074465", color: "#FFF", borderRadius: 6 }}
@@ -389,8 +391,8 @@ const Dashboard = () => {
         )}
 
 
-        
-      {economicCategoryInfoList.length > 0 && (
+
+      {economicCategoryInfoList?.length > 0 && (
           <>
             <Box
               style={{ background: "#074465", color: "#FFF", borderRadius: 6 }}
@@ -419,9 +421,9 @@ const Dashboard = () => {
           </>
         )}
 
-          
-        
-      {retainInInfoList.length > 0 && (
+
+
+      {retainInInfoList?.length > 0 && (
           <>
             <Box
               style={{ background: "#074465", color: "#FFF", borderRadius: 6 }}

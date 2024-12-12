@@ -42,6 +42,7 @@ export default function Filters({ onChange }) {
   const dispatch = useDispatch();
 
   const district_reducer = useSelector((state) => state.district_reducer);
+  console.log('district_reducer', district_reducer)
   const municipality_reducer = useSelector(
     (state) => state.municipality_reducer
   );
@@ -131,11 +132,11 @@ export default function Filters({ onChange }) {
   useEffect(() => {
     let district_list = [];
 
-    if (district_reducer?.data && districtCalled) {
-      const { data, status, message } = district_reducer.data || {};
+    if (district_reducer && districtCalled) {
+      const { data} = district_reducer || {};
       setdistrictCalled(false);
 
-      if (status === "OK" && message === "SUCCESS") {
+      if (data) {
         district_list.push({
           label: "-- Please Select -- ",
           value: null,

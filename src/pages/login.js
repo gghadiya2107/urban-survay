@@ -89,15 +89,15 @@ function SignIn(props) {
   useEffect(() => {
     if (loginCalled) {
       const { data: user_data } = data || {};
-
+console.log('dara', data)
       const { token } = user_data || {};
 
       setLoginCalled(false);
 
-      if (user_data.data) {
+      if (user_data) {
         handleClick();
-        console.log("user_data.data", user_data.data);
-        saveToken(user_data.data);
+        console.log("user_data.data", user_data);
+        saveToken(user_data);
         setMessage({ message: "Access Granted", type: "success" });
         router.push("/dashboard");
       } else if (data?.error?.message.includes("401")) {
